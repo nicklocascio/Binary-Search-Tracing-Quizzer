@@ -32,11 +32,16 @@ public class QuizzerRunner
 		// Sort array
 		Collections.sort(nums);
 		// Print array
-		System.out.println("Here is your array. It may be wise to write this down.");
-		System.out.println(" ");
+		System.out.println("Here is your array. Below the first line are the indeces of each number.");
 		for(Integer a : nums)
 			{
 			System.out.print(a);
+			System.out.print(" ");
+			}
+		System.out.println(" ");
+		for(int i = 1; i < nums.size()+1; i++)
+			{
+			System.out.print(nums.indexOf(i));
 			System.out.print(" ");
 			}
 		System.out.println(" ");
@@ -57,46 +62,83 @@ public class QuizzerRunner
 		Scanner userInput2 = new Scanner(System.in);
 		int counter = 0;
 		int counter2 = 1;
+		int counter3 = 0;
 		// Left, Right, Mid
 		int left = 0;
 		int right = nums.size()-1;
 		// Questions
 		while(pass)
 			{
+			System.out.println(" ");
+			System.out.println("You are on pass " + counter2);
+			System.out.println(" ");
 			// Left
 			System.out.println("What is the left index?");
 			int leftU = userInput2.nextInt();
 			if(leftU == left)
 				{
+				System.out.println("Correct!");
 				counter++;
 				}
+			else
+				{
+				System.out.println("I'm sorry that's incorrect. The correct answer is " + left);
+				}
+			counter3++;
 			// Right
 			System.out.println("What is the right index?");
 			int rightU = userInput2.nextInt();
 			if(rightU == right)
 				{
+				System.out.println("Correct!");
 				counter++;
 				}
+			else
+				{
+				System.out.println("I'm sorry that's incorrect. The correct answer is " + right);
+				}
+			counter3++;
 			// Mid
 			int mid = (left+right)/2;
 			System.out.println("What is the middle index?");
 			int midU = userInput2.nextInt();
 			if(midU == mid)
 				{
+				System.out.println("Correct!");
 				counter++;
 				}
+			else
+				{
+				System.out.println("I'm sorry that's incorrect. The correct answer is " + mid);
+				}
+			counter3++;
 			// Number
 			System.out.println("What is at array[middle]?");
 			int number = userInput2.nextInt();
 			if(number == nums.get(mid))
 				{
+				System.out.println("Correct!");
 				counter++;
 				}
+			else
+				{
+				System.out.println("I'm sorry that's incorrect. The correct answer is " + nums.get(mid));
+				}
+			counter3++;
 			// Checking for target
-			// Equal
+			// Equal		
 			if(nums.get(mid) == target)
 				{
-				System.out.println("You have reached the target in " + counter2 + " passes.");
+				if(counter2 == 1)
+					{
+					System.out.println(" ");
+					System.out.println("You should have reached the target in " + counter2 + " pass.");
+					}
+				else
+					{
+					System.out.println(" ");
+					System.out.println("You should have reached the target in " + counter2 + " passes.");
+					}
 				pass = false;
 				}
 			// Not equal
@@ -105,23 +147,23 @@ public class QuizzerRunner
 				// Change right
 				if(target < nums.get(mid))
 					{
-					//for(int i = mid; i < i ++)
-					//nums.subList(mid, nums.size()).clear();
 					right = mid - 1;
-					System.out.println(right);
 					}
 				// Change left
 				else
 					{
-					//nums.subList(0, mid+1).clear();
 					left = mid + 1;
-					System.out.println(left);
 					}
 				pass = true;
 				}
-			counter2++;
-			System.out.println(counter);
-			}
+			else if(left > right)
+				{
+				pass = false;
+				}
+			counter2++;			
+			}	
+		System.out.println(" ");
+		System.out.println("You got " + counter + " questions correct out of " + counter3);
 		}
 	}
 
