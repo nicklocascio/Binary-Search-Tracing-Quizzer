@@ -1,8 +1,4 @@
 import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
-
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -50,45 +46,81 @@ public class QuizzerRunner
 		System.out.println(" ");
 		System.out.println("Your target number is: " + target);
 		System.out.println(" ");
+		// Chart
 		System.out.println("Use this chart for reference: ");
 		System.out.println(" ");
 		System.out.println("left __  right __  middle __ array[middle] __");
 		System.out.println(" ");
-		// Going in to the quizzer
+		// Going into the quiz
 		boolean pass = true;
+		// Scanner & Counters
 		Scanner userInput2 = new Scanner(System.in);
-		Scanner userInput3 = new Scanner(System.in);
-		Scanner userInput4 = new Scanner(System.in);
-		Scanner userInput5 = new Scanner(System.in);
 		int counter = 0;
+		int counter2 = 1;
+		// Left, Right, Mid
+		int left = 0;
+		int right = nums.size()-1;
+		// Questions
 		while(pass)
 			{
+			// Left
 			System.out.println("What is the left index?");
-			int left = userInput2.nextInt();
-			if(left == nums.get(0))
+			int leftU = userInput2.nextInt();
+			if(leftU == left)
 				{
 				counter++;
 				}
+			// Right
 			System.out.println("What is the right index?");
-			int right = userInput2.nextInt();
-			if(right == nums.get(nums.size()-1))
+			int rightU = userInput2.nextInt();
+			if(rightU == right)
 				{
 				counter++;
 				}
+			// Mid
+			int mid = (left+right)/2;
 			System.out.println("What is the middle index?");
-			int middle = userInput2.nextInt();
-			if(middle == nums.get((left+right)/2))
+			int midU = userInput2.nextInt();
+			if(midU == mid)
 				{
 				counter++;
 				}
+			// Number
 			System.out.println("What is at array[middle]?");
 			int number = userInput2.nextInt();
-			if(number == nums.get(middle))
+			if(number == nums.get(mid))
 				{
 				counter++;
 				}
+			// Checking for target
+			// Equal
+			if(nums.get(mid) == target)
+				{
+				System.out.println("You have reached the target in " + counter2 + " passes.");
+				pass = false;
+				}
+			// Not equal
+			else if(nums.get(mid) != target)
+				{
+				// Change right
+				if(target < nums.get(mid))
+					{
+					//for(int i = mid; i < i ++)
+					//nums.subList(mid, nums.size()).clear();
+					right = mid - 1;
+					System.out.println(right);
+					}
+				// Change left
+				else
+					{
+					//nums.subList(0, mid+1).clear();
+					left = mid + 1;
+					System.out.println(left);
+					}
+				pass = true;
+				}
+			counter2++;
 			System.out.println(counter);
-			// Make sure to add a way to remove half of the array after each pass. Most likely use .remove
 			}
 		}
 	}
